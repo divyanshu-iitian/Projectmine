@@ -8,10 +8,10 @@ export const initInventory = async (productId, quantity) => {
   return response.data;
 };
 
-export const adjustInventory = async (productId, quantity, reason) => {
+export const adjustInventory = async (productId, change, reason) => {
   const response = await client.post('/inventory/adjust', {
     productId,
-    quantity,
+    change,
     reason,
   });
   return response.data;
