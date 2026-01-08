@@ -107,7 +107,21 @@ function ProductCard({ product, onAddToCart, index }) {
     >
       {/* Product Image */}
       <div className="relative h-56 bg-gradient-to-br from-purple-900/20 via-indigo-900/20 to-pink-900/20 overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
+        {product.images && product.images.length > 0 ? (
+          <img 
+            src={product.images[0]} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              e.target.nextElementSibling.style.display = 'flex';
+            }}
+          />
+        ) : null}
+        <div 
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ display: product.images && product.images.length > 0 ? 'none' : 'flex' }}
+        >
           <div className="text-7xl font-bold text-white/5 group-hover:text-white/10 transition-colors">
             {product.name.charAt(0)}
           </div>

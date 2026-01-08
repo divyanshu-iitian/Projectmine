@@ -19,6 +19,7 @@ export default function ProductsManagement() {
     price: '',
     category: '',
     stock: '',
+    imageUrl: '',
   });
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export default function ProductsManagement() {
         description: formData.description,
         price: parseFloat(formData.price),
         category: formData.category,
+        images: formData.imageUrl ? [formData.imageUrl] : [],
       };
       
       const stockQuantity = parseInt(formData.stock);
@@ -116,6 +118,7 @@ export default function ProductsManagement() {
       price: product.price,
       category: product.category,
       stock: product.stock,
+      imageUrl: product.images?.[0] || '',
     });
     setShowModal(true);
   };
@@ -141,7 +144,7 @@ export default function ProductsManagement() {
   const handleCloseModal = () => {
     setShowModal(false);
     setEditingProduct(null);
-    setFormData({ name: '', description: '', price: '', category: '', stock: '' });
+    setFormData({ name: '', description: '', price: '', category: '', stock: '', imageUrl: '' });
   };
 
   const columns = [
@@ -240,6 +243,27 @@ export default function ProductsManagement() {
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Image URL (Optional)
+                  </label>
+                  <input
+                    type="url"
+                    value={formData.imageUrl}
+                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                  />
+                  {formData.imageUrl && (
+                    <img 
+                      src={formData.imageUrl} 
+                      alt="Preview" 
+                      className="mt-2 w-full h-32 object-cover rounded-lg"
+                      onError={(e) => e.target.style.display = 'none'}
+                    />
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
