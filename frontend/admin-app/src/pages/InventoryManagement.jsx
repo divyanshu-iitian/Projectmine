@@ -21,7 +21,8 @@ export default function InventoryManagement() {
     try {
       const data = await getAllProducts();
       console.log('Inventory data:', data);
-      setProducts(Array.isArray(data) ? data : []);
+      const productsList = data.products || data;
+      setProducts(Array.isArray(productsList) ? productsList : []);
     } catch (error) {
       console.error('Failed to fetch products:', error);
       setProducts([]);

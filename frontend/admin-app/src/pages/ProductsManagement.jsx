@@ -30,7 +30,9 @@ export default function ProductsManagement() {
     try {
       const data = await getAllProducts();
       console.log('Products data:', data);
-      setProducts(Array.isArray(data) ? data : []);
+      // Backend returns { products: [...], pagination: {...} }
+      const productsList = data.products || data;
+      setProducts(Array.isArray(productsList) ? productsList : []);
     } catch (error) {
       console.error('Failed to fetch products:', error);
       setProducts([]);

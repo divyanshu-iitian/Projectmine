@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { productsAPI } from '../api/products';
 import { useCartStore } from '../store/cartStore';
 import { ShoppingCart, Loader2 } from 'lucide-react';
 
 export function ProductsPage() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -85,6 +87,7 @@ export function ProductsPage() {
                 key={product._id}
                 product={product}
                 onAddToCart={handleAddToCart}
+                onViewDetails={() => navigate(`/products/${product._id}`)}
                 index={index}
               />
             ))}
@@ -95,7 +98,7 @@ export function ProductsPage() {
   );
 }
 
-function ProductCard({ product, onAddToCart, index }) {
+function ProductCard({ product, onAddToCart, onViewDetails, index }) {
   const isInStock = product.stockQuantity > 0;
 
   return (
@@ -103,7 +106,8 @@ function ProductCard({ product, onAddToCart, index }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-500"
+      className="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-500 cursor-pointer"
+      onClick={onViewDetails}
     >
       {/* Product Image */}
       <div className="relative h-56 bg-gradient-to-br from-purple-900/20 via-indigo-900/20 to-pink-900/20 overflow-hidden">
@@ -153,6 +157,10 @@ function ProductCard({ product, onAddToCart, index }) {
 
         <button
           onClick={() => onAddToCart(product)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onAddToCart(product);
+          }}
           disabled={!isInStock}
           className={`w-full py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
             isInStock
