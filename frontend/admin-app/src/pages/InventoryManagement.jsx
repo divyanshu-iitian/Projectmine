@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import DataTable from '../components/DataTable';
 import { getAllProducts } from '../api/products';
-import { getInventoryStatus, adjustInventory } from '../api/inventory';
+import { initInventory, adjustInventory } from '../api/inventory';
 
 export default function InventoryManagement() {
   const [products, setProducts] = useState([]);
@@ -35,18 +35,35 @@ export default function InventoryManagement() {
     setShowModal(true);
   };
 
+  const handleInitInventory = async (product) => {
+    const quantity = prompt(`Initialize stock for "${product.name}". Enter quantity:`, '0');
+    if (quantity !== null) {
+      try {
+        await initInventory(product._id, parseInt(quantity));
+        alert('Inventory initialized successfully!');
+        fetchProducts();
+      } catch (error) {
+        console.error('Failed to initialize inventory:', error);
+        alert(error.response?.data?.message || 'Failed to initialize inventory');
+      }
+    }
+  };
+
   const handleAdjustSubmit = async (e) => {
     e.preventDefault();
     try {
-      await adjustInventory(
-        selectedProduct._id,
-        parseInt(adjustData.quantity),
-        adjustData.reason
-      );
+      const change = parseInt(adjustData.quantity);
+      if (selectedProduct.stock === 0) {
+        // If no stock exists, initialize instead of adjust
+        await initInventory(selectedProduct._id, change);
+      } else {
+        await adjustInventory(selectedProduct._id, change, adjustData.reason);
+      }
       fetchProducts();
       setShowModal(false);
       setSelectedProduct(null);
       setAdjustData({ quantity: '', reason: '' });
+      alert('Inventory updated successfully!');
     } catch (error) {
       console.error('Failed to adjust inventory:', error);
       alert(error.response?.data?.message || 'Failed to adjust inventory');
@@ -60,8 +77,8 @@ export default function InventoryManagement() {
       key: 'stock',
       label: 'Current Stock',
       render: (stock) => (
-        <span className={stock < 10 ? 'text-red-400' : 'text-green-400'}>
-          {stock}
+        <span className={stock === 0 ? 'text-red-400' : stock < 10 ? 'text-yellow-400' : 'text-green-400'}>
+          {stock === 0 ? 'Not Initialized' : stock}
         </span>
       ),
     },
@@ -69,12 +86,23 @@ export default function InventoryManagement() {
       key: '_id',
       label: 'Actions',
       render: (_, product) => (
-        <button
-          onClick={() => handleAdjustClick(product)}
-          className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded hover:bg-purple-500/30 transition-colors"
-        >
-          Adjust Stock
-        </button>
+        <div className="flex gap-2">
+          {product.stock === 0 ? (
+            <button
+              onClick={() => handleInitInventory(product)}
+              className="px-3 py-1 bg-green-500/20 text-green-400 rounded hover:bg-green-500/30 transition-colors"
+            >
+              Initialize Stock
+            </button>
+          ) : (
+            <button
+              onClick={() => handleAdjustClick(product)}
+              className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded hover:bg-purple-500/30 transition-colors"
+            >
+              Adjust Stock
+            </button>
+          )}
+        </div>
       ),
     },
   ];

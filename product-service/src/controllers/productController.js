@@ -10,21 +10,26 @@ async function fetchStockData(productIds) {
   try {
     const stockMap = {};
     
+    console.log(`📦 Fetching stock for ${productIds.length} products from ${config.inventoryServiceUrl}`);
+    
     // Fetch stock data for each product
     await Promise.all(
       productIds.map(async (productId) => {
         try {
-          const response = await axios.get(
-            `${config.inventoryServiceUrl}/inventory/${productId}`
-          );
+          const url = `${config.inventoryServiceUrl}/inventory/${productId}`;
+          console.log(`  → Fetching: ${url}`);
+          const response = await axios.get(url);
           stockMap[productId] = response.data.stock || 0;
+          console.log(`  ✅ Product ${productId}: ${response.data.stock} units`);
         } catch (error) {
+          console.error(`  ❌ Product ${productId}: ${error.message}`);
           // If inventory not found, default to 0
           stockMap[productId] = 0;
         }
       })
     );
     
+    console.log('📊 Stock map:', stockMap);
     return stockMap;
   } catch (error) {
     console.error('Error fetching stock data:', error.message);
@@ -39,7 +44,7 @@ async function fetchStockData(productIds) {
  */
 export async function createProduct(req, res, next) {
   try {
-    const { name, description, price, category, images } = req.body;
+    const { name, description, price, category, images, stock } = req.body;
 
     if (!name || !description || price === undefined || !category) {
       throw new ApiError(400, 'name, description, price, and category are required');
@@ -58,6 +63,28 @@ export async function createProduct(req, res, next) {
       createdBy: req.user.id,
     });
 
+    // Initialize inventory in Redis if stock is provided
+    if (stock !== undefined && stock > 0) {
+      try {
+        await axios.post(
+          `${config.inventoryServiceUrl}/inventory/init`,
+          {
+            productId: product._id.toString(),
+            quantity: parseInt(stock),
+          },
+          {
+            headers: {
+              Authorization: req.headers.authorization,
+            },
+          }
+        );
+        console.log(`✅ Inventory initialized for product ${product._id}: ${stock} units`);
+      } catch (inventoryError) {
+        console.error('❌ Failed to initialize inventory:', inventoryError.message);
+        // Don't fail the product creation if inventory service is down
+      }
+    }
+
     res.status(201).json({ product });
   } catch (err) {
     next(err);
@@ -71,7 +98,7 @@ export async function createProduct(req, res, next) {
 export async function updateProduct(req, res, next) {
   try {
     const { id } = req.params;
-    const { name, description, price, category, images, isActive } = req.body;
+    const { name, description, price, category, images, isActive, stock } = req.body;
 
     const updateData = {};
     if (name !== undefined) updateData.name = name;
@@ -88,6 +115,27 @@ export async function updateProduct(req, res, next) {
 
     if (!product) {
       throw new ApiError(404, 'Product not found');
+    }
+
+    // Update inventory if stock is provided
+    if (stock !== undefined) {
+      try {
+        await axios.post(
+          `${config.inventoryServiceUrl}/inventory/init`,
+          {
+            productId: id,
+            quantity: parseInt(stock),
+          },
+          {
+            headers: {
+              Authorization: req.headers.authorization,
+            },
+          }
+        );
+        console.log(`✅ Inventory updated for product ${id}: ${stock} units`);
+      } catch (inventoryError) {
+        console.error('❌ Failed to update inventory:', inventoryError.message);
+      }
     }
 
     res.status(200).json({ product });

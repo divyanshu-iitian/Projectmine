@@ -13,8 +13,10 @@ const router = Router();
 
 // Admin-only routes
 router.post('/init', requireAdmin, initStock);
-router.get('/:productId', requireAdmin, getStockByProductId);
 router.post('/adjust', requireAdmin, adjustStock);
+
+// Public route for fetching stock (needed by product service - no auth required)
+router.get('/:productId', getStockByProductId);
 
 // Admin analytics routes
 router.get('/admin/analytics/inventory', requireAdmin, getInventoryAnalytics);
