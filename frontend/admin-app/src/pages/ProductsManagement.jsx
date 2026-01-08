@@ -166,7 +166,7 @@ export default function ProductsManagement() {
         <Sidebar />
         <div className="ml-64 flex-1 p-8 flex items-center justify-center min-h-screen">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+            <div className="w-16 h-16 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin"></div>
             <p className="text-gray-400 text-lg">Loading products...</p>
           </div>
         </div>
@@ -183,7 +183,7 @@ export default function ProductsManagement() {
           <h1 className="text-3xl font-bold">Products Management</h1>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] rounded-lg hover:opacity-90 transition-opacity"
           >
             <Plus size={20} />
             Add Product
@@ -311,7 +311,7 @@ export default function ProductsManagement() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
                   >
                     {submitting ? 'Saving...' : (editingProduct ? 'Update' : 'Create')}
                   </button>

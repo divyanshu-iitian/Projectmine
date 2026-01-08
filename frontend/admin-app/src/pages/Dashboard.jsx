@@ -57,7 +57,7 @@ export default function Dashboard() {
         <Sidebar />
         <div className="ml-64 flex-1 p-8 flex items-center justify-center min-h-screen">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-16 h-16 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+            <div className="w-16 h-16 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin"></div>
             <p className="text-gray-400 text-lg">Loading dashboard...</p>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function Dashboard() {
             className="glass p-6 rounded-xl border border-white/10 shadow-xl"
           >
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="text-purple-400" size={24} />
+              <TrendingUp className="text-[#d4af37]" size={24} />
               <h2 className="text-xl font-semibold">Revenue Trend</h2>
             </div>
             <ResponsiveContainer width="100%" height={300}>

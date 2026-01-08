@@ -2,8 +2,8 @@
 
 @layer base {
   body {
-    background-color: #0B0B0F;
-    color: #E4E4E7;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+    color: #faf8f3;
     font-family: 'Inter', sans-serif;
     margin: 0;
     min-width: 320px;
@@ -14,23 +14,44 @@
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
+    background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #f0e68c 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   
   .glass {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(20, 20, 30, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.15);
   }
   
   .premium-glow {
-    box-shadow: 0 0 60px rgba(168, 85, 247, 0.15);
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.25);
   }
   
   .text-muted {
-    color: #A1A1AA;
+    color: #b8b8b8;
+  }
+  
+  .text-luxe {
+    color: #faf8f3;
+  }
+  
+  .text-gold {
+    color: #d4af37;
+  }
+  
+  .bg-luxe-card {
+    background: linear-gradient(135deg, rgba(20, 20, 30, 0.9) 0%, rgba(30, 30, 45, 0.8) 100%);
+  }
+  
+  .border-luxe {
+    border-color: rgba(212, 175, 55, 0.2);
+  }
+  
+  .hover-luxe:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
   }
 }

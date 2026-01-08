@@ -12,20 +12,21 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-white hover:scale-105 transition-transform">
-            <span className="gradient-text">MiShop</span>
+          <Link to="/" className="flex items-center gap-2 text-xl font-bold hover:scale-105 transition-transform">
+            <span className="gradient-text text-2xl">DivyaLuxe</span>
+            <span className="text-xs text-gold">✦</span>
           </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-sm text-muted hover:text-white transition-colors">
+            <Link to="/" className="text-sm text-[#b8b8b8] hover:text-[#d4af37] transition-colors font-medium">
               Home
             </Link>
-            <Link to="/products" className="text-sm text-muted hover:text-white transition-colors">
+            <Link to="/products" className="text-sm text-[#b8b8b8] hover:text-[#d4af37] transition-colors font-medium">
               Products
             </Link>
             {isAuthenticated && (
-              <Link to="/orders" className="text-sm text-muted hover:text-white transition-colors">
+              <Link to="/orders" className="text-sm text-[#b8b8b8] hover:text-[#d4af37] transition-colors font-medium">
                 Orders
               </Link>
             )}
@@ -35,9 +36,9 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             {/* Cart */}
             <Link to="/cart" className="relative group">
-              <ShoppingCart className="w-6 h-6 text-gray-300 group-hover:text-white transition-colors" />
+              <ShoppingCart className="w-6 h-6 text-[#b8b8b8] group-hover:text-[#d4af37] transition-colors" />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-lg">
+                <span className="absolute -top-2 -right-2 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-lg">
                   {itemCount}
                 </span>
               )}
@@ -46,16 +47,16 @@ export function Navbar() {
             {/* Auth */}
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-                  <User className="w-5 h-5 text-indigo-400" />
-                  <span className="text-sm font-medium text-gray-300">{user?.name}</span>
+                <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-[#1a1a2e] border border-[#d4af37]/20">
+                  <User className="w-5 h-5 text-[#d4af37]" />
+                  <span className="text-sm font-medium text-[#faf8f3]">{user?.name}</span>
                 </div>
                 <button
                   onClick={logout}
-                  className="flex items-center space-x-1 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all"
+                  className="flex items-center space-x-1 px-4 py-2 rounded-lg bg-[#1a1a2e] hover:bg-[#d4af37]/10 border border-[#d4af37]/20 hover:border-[#d4af37]/50 transition-all"
                 >
-                  <LogOut className="w-4 h-4" />
-                  <span className="text-sm text-gray-300">Logout</span>
+                  <LogOut className="w-4 h-4 text-[#d4af37]" />
+                  <span className="text-sm text-[#faf8f3]">Logout</span>
                 </button>
               </div>
             ) : (

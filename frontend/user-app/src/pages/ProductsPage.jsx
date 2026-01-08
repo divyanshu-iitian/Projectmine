@@ -78,7 +78,7 @@ export function ProductsPage() {
         {products.length === 0 ? (
           <div className="text-center py-20 glass rounded-2xl">
             <p className="text-muted text-lg mb-2">No products available</p>
-            <p className="text-sm text-purple-400">Start backend: docker-compose up -d</p>
+            <p className="text-sm text-[#d4af37]">Start backend: docker-compose up -d</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -106,11 +106,11 @@ function ProductCard({ product, onAddToCart, onViewDetails, index }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all duration-500 cursor-pointer"
+      className="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden hover:border-[#d4af37]/30 transition-all duration-500 cursor-pointer"
       onClick={onViewDetails}
     >
       {/* Product Image */}
-      <div className="relative h-56 bg-gradient-to-br from-purple-900/20 via-indigo-900/20 to-pink-900/20 overflow-hidden">
+      <div className="relative h-56 bg-gradient-to-br from-[#d4af37]/10 via-[#b8860b]/10 to-[#ffd700]/10 overflow-hidden">
         {product.images && product.images.length > 0 ? (
           <img 
             src={product.images[0]} 
@@ -139,7 +139,7 @@ function ProductCard({ product, onAddToCart, onViewDetails, index }) {
 
       {/* Product Info */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-2 line-clamp-1">
+        <h3 className="text-xl font-bold text-[#faf8f3] mb-2 line-clamp-1">
           {product.name}
         </h3>
         <p className="text-sm text-muted mb-4 line-clamp-2">
@@ -164,7 +164,7 @@ function ProductCard({ product, onAddToCart, onViewDetails, index }) {
           disabled={!isInStock}
           className={`w-full py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
             isInStock
-              ? 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:shadow-lg hover:shadow-purple-500/30'
+              ? 'bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] hover:shadow-lg hover:shadow-[#d4af37]/30'
               : 'bg-white/5 text-muted cursor-not-allowed'
           }`}
         >

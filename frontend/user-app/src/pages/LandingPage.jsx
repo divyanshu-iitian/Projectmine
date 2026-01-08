@@ -53,7 +53,7 @@ export function LandingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="inline-block mb-6 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/5 text-sm text-purple-300"
+              className="inline-block mb-6 px-4 py-2 rounded-full border border-[#d4af37]/20 bg-[#d4af37]/5 text-sm text-[#d4af37]"
             >
               Premium Shopping Experience
             </motion.div>
@@ -73,7 +73,7 @@ export function LandingPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/products"
-                className="group px-8 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-semibold text-base hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center gap-2"
+                className="group px-8 py-4 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] rounded-xl font-semibold text-base hover:shadow-2xl hover:shadow-[#d4af37]/30 transition-all duration-300 flex items-center gap-2"
               >
                 Explore Products
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -94,9 +94,9 @@ export function LandingPage() {
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          <div className="w-6 h-10 border-2 border-purple-500/30 rounded-full flex justify-center p-2">
+          <div className="w-6 h-10 border-2 border-[#d4af37]/30 rounded-full flex justify-center p-2">
             <motion.div 
-              className="w-1 h-2 bg-purple-400 rounded-full"
+              className="w-1 h-2 bg-[#d4af37] rounded-full"
               animate={{ y: [0, 12, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             ></motion.div>
@@ -115,7 +115,7 @@ export function LandingPage() {
             className="text-center mb-20"
           >
             <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-              Why Choose <span className="gradient-text">MiShop</span>
+              Why Choose <span className="gradient-text">DivyaLuxe</span>
             </h2>
             <p className="text-xl text-muted max-w-3xl mx-auto">
               Fast, secure, and reliable shopping platform
@@ -147,7 +147,7 @@ export function LandingPage() {
 
       {/* Metrics Section */}
       <section className="relative py-20 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#d4af37]/5 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -177,7 +177,7 @@ export function LandingPage() {
             </p>
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-[#d4af37]/40 transition-all duration-300"
             >
               Start Shopping
               <ArrowRight className="w-5 h-5" />
@@ -190,7 +190,7 @@ export function LandingPage() {
       <footer className="border-t border-white/5 py-12 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-muted text-sm">
-            © 2026 MiShop. All rights reserved.
+            © 2026 DivyaLuxe. All rights reserved.
           </p>
         </div>
       </footer>
@@ -207,10 +207,10 @@ function PremiumFeatureCard({ icon, title, description, delay }) {
       viewport={{ once: true }}
       className="group relative p-8 rounded-2xl glass hover:bg-white/5 transition-all duration-500"
     >
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/0 to-indigo-500/0 group-hover:from-purple-500/5 group-hover:to-indigo-500/5 transition-all duration-500"></div>
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#d4af37]/0 to-[#b8860b]/0 group-hover:from-[#d4af37]/5 group-hover:to-[#b8860b]/5 transition-all duration-500"></div>
       
       <div className="relative z-10">
-        <div className="mb-6 text-purple-400 group-hover:text-purple-300 transition-colors duration-300">
+        <div className="mb-6 text-[#d4af37] group-hover:text-[#ffd700] transition-colors duration-300">
           {icon}
         </div>
         <h3 className="text-2xl font-bold mb-4 text-white">

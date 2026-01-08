@@ -63,7 +63,7 @@ export function ProductDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen pt-24 flex items-center justify-center bg-[#0B0B0F]">
-        <div className="w-8 h-8 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export function ProductDetailPage() {
           <p className="text-red-500 mb-4">{error || 'Product not found'}</p>
           <button
             onClick={() => navigate('/products')}
-            className="px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600"
+            className="px-6 py-2 bg-[#d4af37] text-[#0a0a0f] rounded-lg hover:bg-[#ffd700]"
           >
             Back to Products
           </button>
@@ -94,7 +94,7 @@ export function ProductDetailPage() {
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumb */}
         <div className="mb-6 text-sm text-muted flex items-center gap-2">
-          <button onClick={() => navigate('/products')} className="hover:text-purple-400">
+          <button onClick={() => navigate('/products')} className="hover:text-[#d4af37]">
             Products
           </button>
           <span>/</span>
@@ -206,7 +206,7 @@ export function ProductDetailPage() {
             <div className="flex items-center gap-6 py-4 border-y border-white/10">
               <div>
                 <span className="text-muted">Category:</span>
-                <span className="ml-2 text-purple-400 font-medium">{product.category}</span>
+                <span className="ml-2 text-[#d4af37] font-medium">{product.category}</span>
               </div>
               <div>
                 <span className="text-muted">Stock:</span>
@@ -223,14 +223,14 @@ export function ProductDetailPage() {
                 <div className="flex items-center gap-3 glass rounded-lg px-4 py-2">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="text-2xl text-white hover:text-purple-400 transition-colors"
+                    className="text-2xl text-white hover:text-[#d4af37] transition-colors"
                   >
                     -
                   </button>
                   <span className="text-xl font-bold text-white w-12 text-center">{quantity}</span>
                   <button
                     onClick={() => setQuantity(Math.min(product.stockQuantity || product.stock || 99, quantity + 1))}
-                    className="text-2xl text-white hover:text-purple-400 transition-colors"
+                    className="text-2xl text-white hover:text-[#d4af37] transition-colors"
                   >
                     +
                   </button>
@@ -243,7 +243,7 @@ export function ProductDetailPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={!isInStock}
-                className="flex-1 py-4 px-6 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-4 px-6 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-[#0a0a0f] rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#d4af37]/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ShoppingCart size={20} />
                 Add to Cart
@@ -266,15 +266,15 @@ export function ProductDetailPage() {
             {/* Features */}
             <div className="grid grid-cols-3 gap-4 pt-6">
               <div className="text-center p-4 glass rounded-xl">
-                <Truck className="mx-auto mb-2 text-purple-400" size={24} />
+                <Truck className="mx-auto mb-2 text-[#d4af37]" size={24} />
                 <p className="text-sm text-muted">Free Delivery</p>
               </div>
               <div className="text-center p-4 glass rounded-xl">
-                <Shield className="mx-auto mb-2 text-purple-400" size={24} />
+                <Shield className="mx-auto mb-2 text-[#d4af37]" size={24} />
                 <p className="text-sm text-muted">Secure Payment</p>
               </div>
               <div className="text-center p-4 glass rounded-xl">
-                <RotateCcw className="mx-auto mb-2 text-purple-400" size={24} />
+                <RotateCcw className="mx-auto mb-2 text-[#d4af37]" size={24} />
                 <p className="text-sm text-muted">Easy Returns</p>
               </div>
             </div>
@@ -289,14 +289,14 @@ export function ProductDetailPage() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`pb-4 px-2 font-medium capitalize transition-colors relative ${
-                  activeTab === tab ? 'text-purple-400' : 'text-muted hover:text-white'
+                  activeTab === tab ? 'text-[#d4af37]' : 'text-muted hover:text-white'
                 }`}
               >
                 {tab}
                 {activeTab === tab && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#d4af37]"
                   />
                 )}
               </button>

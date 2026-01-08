@@ -8,7 +8,7 @@ export default function StatsCard({ title, value, icon: Icon, trend, trendValue 
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -4, scale: 1.02 }}
       transition={{ duration: 0.2 }}
-      className="glass p-6 rounded-xl border border-white/10 shadow-lg hover:shadow-purple-500/20 transition-all"
+      className="glass p-6 rounded-xl border border-white/10 shadow-lg hover:shadow-[#d4af37]/20 transition-all"
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
@@ -39,12 +39,12 @@ export default function StatsCard({ title, value, icon: Icon, trend, trendValue 
           initial={{ rotate: -45, scale: 0 }}
           animate={{ rotate: 0, scale: 1 }}
           transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/30"
+          className="p-3 rounded-xl bg-gradient-to-br from-[#d4af37]/20 to-[#b8860b]/20 border border-[#d4af37]/30"
         >
-          <Icon size={24} className="text-purple-400" />
+          <Icon size={24} className="text-[#d4af37]" />
         </motion.div>
       </div>
-      <div className="h-1 bg-gradient-to-r from-purple-500/50 to-indigo-500/50 rounded-full"></div>
+      <div className="h-1 bg-gradient-to-r from-[#d4af37]/50 to-[#b8860b]/50 rounded-full"></div>
     </motion.div>
   );
 }
