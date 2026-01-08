@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import StatsCard from '../components/StatsCard';
 import { getAnalyticsSummary, getRevenueAnalytics, getOrderAnalytics } from '../api/analytics';
+import { getAllProducts } from '../api/products';
 import { formatCurrency } from '../utils/formatters';
 
 export default function Dashboard() {
@@ -21,14 +22,25 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       setRefreshing(true);
-      const [summaryRes, revenueRes, orderRes] = await Promise.all([
+      const [summaryRes, revenueRes, orderRes, productsRes] = await Promise.all([
         getAnalyticsSummary(),
         getRevenueAnalytics(),
         getOrderAnalytics(),
+        getAllProducts(),
       ]);
 
-      console.log('Dashboard data:', { summaryRes, revenueRes, orderRes });
-      setSummary(summaryRes);
+      console.log('Dashboard data:', { summaryRes, revenueRes, orderRes, productsRes });
+      
+      // Get actual product count
+      const productCount = productsRes?.products?.length || productsRes?.length || 0;
+      
+      // Merge summary with real product count
+      const summaryWithProducts = {
+        ...summaryRes,
+        totalProducts: productCount
+      };
+      
+      setSummary(summaryWithProducts);
       setRevenueData(Array.isArray(revenueRes?.dailyRevenue) ? revenueRes.dailyRevenue : (Array.isArray(revenueRes) ? revenueRes : []));
       setOrderData(Array.isArray(orderRes?.ordersByStatus) ? orderRes.ordersByStatus : (Array.isArray(orderRes) ? orderRes : []));
     } catch (error) {

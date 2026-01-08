@@ -154,16 +154,19 @@ export default function InventoryManagement() {
               <form onSubmit={handleAdjustSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Adjustment Quantity (+ to add, - to remove)
+                    Adjustment Quantity
                   </label>
                   <input
                     type="number"
                     required
                     value={adjustData.quantity}
                     onChange={(e) => setAdjustData({ ...adjustData, quantity: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
-                    placeholder="e.g., 10 or -5"
+                    className="w-full px-4 py-2 bg-gray-800 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                    placeholder="Enter positive number to add, negative to remove"
                   />
+                  <p className="text-xs text-gray-400 mt-1">
+                    Examples: 10 (adds 10), -5 (removes 5). New total will be: {selectedProduct.stock + (parseInt(adjustData.quantity) || 0)}
+                  </p>
                 </div>
 
                 <div>
@@ -174,13 +177,13 @@ export default function InventoryManagement() {
                     required
                     value={adjustData.reason}
                     onChange={(e) => setAdjustData({ ...adjustData, reason: e.target.value })}
-                    className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                    className="w-full px-4 py-2 bg-gray-800 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
                   >
-                    <option value="">Select reason</option>
-                    <option value="restock">Restock</option>
-                    <option value="damaged">Damaged</option>
-                    <option value="returned">Returned</option>
-                    <option value="adjustment">Manual Adjustment</option>
+                    <option value="" className="bg-gray-800 text-gray-400">Select reason</option>
+                    <option value="restock" className="bg-gray-800 text-white">Restock</option>
+                    <option value="damaged" className="bg-gray-800 text-white">Damaged</option>
+                    <option value="returned" className="bg-gray-800 text-white">Returned</option>
+                    <option value="adjustment" className="bg-gray-800 text-white">Manual Adjustment</option>
                   </select>
                 </div>
 

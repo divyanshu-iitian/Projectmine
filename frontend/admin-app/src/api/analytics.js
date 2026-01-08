@@ -1,8 +1,20 @@
 import client from './client';
 
 export const getAnalyticsSummary = async () => {
-  const response = await client.get('/admin/analytics/summary');
-  return response.data;
+  try {
+    const response = await client.get('/admin/analytics/summary');
+    console.log('Analytics summary response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Analytics API error:', error);
+    // Return default values if API fails
+    return {
+      totalRevenue: 0,
+      totalOrders: 0,
+      totalProducts: 0,
+      totalUsers: 0
+    };
+  }
 };
 
 export const getRevenueAnalytics = async () => {
