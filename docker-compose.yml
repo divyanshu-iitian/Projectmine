@@ -1,0 +1,130 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  auth-service:
+    build:
+      context: ./auth-service
+    image: auth-service:latest
+    container_name: auth-service
+    restart: unless-stopped
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://mongodb:27017/authdb
+      - JWT_SECRET=${JWT_SECRET}
+      - BCRYPT_SALT_ROUNDS=10
+    depends_on:
+      - mongodb
+    ports:
+      - '4000:4000'
+
+  product-service:
+    build:
+      context: ./product-service
+    image: product-service:latest
+    container_name: product-service
+    restart: unless-stopped
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/productdb
+    depends_on:
+      - mongodb
+    ports:
+      - '5000:5000'
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+    image: inventory-service:latest
+    container_name: inventory-service
+    restart: unless-stopped
+    environment:
+      - PORT=6000
+      - REDIS_URL=redis://redis:6379
+      - MONGO_URI=mongodb://mongodb:27017/inventorydb
+      - LOW_STOCK_THRESHOLD=10
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - '6000:6000'
+
+  order-service:
+    build:
+      context: ./order-service
+    image: order-service:latest
+    container_name: order-service
+    restart: unless-stopped
+    environment:
+      - PORT=7000
+      - MONGO_URI=mongodb://mongodb:27017/orderdb
+      - PRODUCT_SERVICE_URL=http://product-service:5000
+      - INVENTORY_SERVICE_URL=http://inventory-service:6000
+    depends_on:
+      - mongodb
+      - product-service
+      - inventory-service
+    ports:
+      - '7000:7000'
+
+  payment-service:
+    build:
+      context: ./payment-service
+    image: payment-service:latest
+    container_name: payment-service
+    restart: unless-stopped
+    environment:
+      - PORT=8000
+      - MONGODB_URI=mongodb://mongodb:27017/paymentdb
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - ORDER_SERVICE_URL=http://order-service:7000
+      - INVENTORY_SERVICE_URL=http://inventory-service:6000
+    depends_on:
+      - mongodb
+      - order-service
+      - inventory-service
+    ports:
+      - '8000:8000'
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    image: api-gateway:latest
+    container_name: api-gateway
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:4000
+      - PRODUCT_SERVICE_URL=http://product-service:5000
+      - INVENTORY_SERVICE_URL=http://inventory-service:6000
+      - ORDER_SERVICE_URL=http://order-service:7000
+      - PAYMENT_SERVICE_URL=http://payment-service:8000
+      - JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - auth-service
+      - product-service
+      - inventory-service
+      - order-service
+      - payment-service
+    ports:
+      - '3000:3000'
+
+volumes:
+  mongo_data:
+  redis_data:
